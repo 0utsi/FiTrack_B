@@ -22,4 +22,7 @@ export class CardioService {
     });
     return this.cardioRepository.save(cardio);
   }
+  async getAllExercises(): Promise<Cardio[]> {
+    return this.cardioRepository.find();
+  }
 }
