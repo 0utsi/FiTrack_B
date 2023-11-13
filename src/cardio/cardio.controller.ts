@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { CardioService } from './cardio.service';
 import { Cardio } from './cardio.entity';
 
@@ -19,7 +19,7 @@ export class CardioController {
     );
   }
   @Get()
-  async getAllExercises(): Promise<Cardio[]> {
-    return this.cardioService.getAllExercises();
+  async getAllExercises(@Query('asc') asc: boolean): Promise<Cardio[]> {
+    return this.cardioService.getAllExercises(asc);
   }
 }
