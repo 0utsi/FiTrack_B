@@ -8,7 +8,7 @@ export class Strength {
   @Column()
   exerciseName: string;
 
-  @Column({ nullable: true })
+  @Column()
   weight: number;
 
   @Column()

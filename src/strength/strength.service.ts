@@ -10,7 +10,7 @@ export class StrengthService {
     private strengthRepository: Repository<Strength>,
   ) {}
 
-  async createStrengthExervise(
+  async createStrengthExercise(
     exerciseName: string,
     weight: number,
     sets: number,

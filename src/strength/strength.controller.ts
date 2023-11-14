@@ -14,7 +14,7 @@ export class StrengthController {
     @Body('repetitions') repetitions: number,
     @Body('date') date: Date,
   ) {
-    return this.strengthService.createStrengthExervise(
+    return this.strengthService.createStrengthExercise(
       exerciseName,
       weight,
       sets,

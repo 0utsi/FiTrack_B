@@ -5,6 +5,7 @@ import { CardioModule } from './cardio/cardio.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cardio } from './cardio/cardio.entity';
 import { StrengthModule } from './strength/strength.module';
+import { Strength } from './strength/strength.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { StrengthModule } from './strength/strength.module';
       username: process.env.USER_DB,
       password: process.env.USER_PASS,
       database: 'mati',
-      entities: [Cardio],
+      entities: [Cardio, Strength],
       synchronize: true,
     }),
     CardioModule,
