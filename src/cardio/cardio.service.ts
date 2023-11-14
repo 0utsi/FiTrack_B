@@ -22,7 +22,7 @@ export class CardioService {
     });
     return this.cardioRepository.save(cardio);
   }
-  async getAllExercises(asc: boolean): Promise<Cardio[]> {
+  async getAllCardio(asc: boolean): Promise<Cardio[]> {
     console.log(asc);
     const order = asc ? 'ASC' : 'DESC';
     console.log(order);

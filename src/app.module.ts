@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CardioModule } from './cardio/cardio.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cardio } from './cardio/cardio.entity';
+import { StrengthModule } from './strength/strength.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Cardio } from './cardio/cardio.entity';
       synchronize: true,
     }),
     CardioModule,
+    StrengthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
