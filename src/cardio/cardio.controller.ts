@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
 import { CardioService } from './cardio.service';
 import { Cardio } from './cardio.entity';
 
@@ -21,5 +21,10 @@ export class CardioController {
   @Get()
   async getAllExercises(@Query('asc') asc: boolean): Promise<Cardio[]> {
     return this.cardioService.getAllCardio(asc);
+  }
+
+  @Delete(':id')
+  async deleteCardioExercise(@Query('id') id: number): Promise<void> {
+    await this.cardioService.deleteCardioExercise(id);
   }
 }
