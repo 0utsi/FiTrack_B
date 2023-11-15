@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
 import { Strength } from './strength.entity';
 import { StrengthService } from './strength.service';
 
@@ -25,5 +25,9 @@ export class StrengthController {
   @Get()
   async getAllExercises(): Promise<Strength[]> {
     return this.strengthService.getAllStrengthTraining();
+  }
+  @Delete(':id')
+  async deleteStrengthExercise(@Query('id') id: number): Promise<void> {
+    this.strengthService.deleteStrengthExercise(id);
   }
 }
