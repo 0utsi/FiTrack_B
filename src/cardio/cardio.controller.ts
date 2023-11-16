@@ -27,8 +27,9 @@ export class CardioController {
       date,
     );
   }
+
   @Get()
-  async getAllExercises(@Query('asc') asc: boolean): Promise<Cardio[]> {
+  async getAllExercises(@Query('asc') asc: string): Promise<Cardio[]> {
     return this.cardioService.getAllCardio(asc);
   }
 

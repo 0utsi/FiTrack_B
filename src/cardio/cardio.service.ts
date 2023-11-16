@@ -22,12 +22,10 @@ export class CardioService {
     });
     return this.cardioRepository.save(cardio);
   }
-  async getAllCardio(asc: boolean): Promise<Cardio[]> {
-    console.log(asc);
-    const order = asc ? 'ASC' : 'DESC';
-    console.log(order);
+  async getAllCardio(asc: string): Promise<Cardio[]> {
+    const order: 'ASC' | 'DESC' = asc as 'ASC' | 'DESC';
     return this.cardioRepository.find({
-      order: { date: 'ASC' },
+      order: { date: order },
     });
   }
 
