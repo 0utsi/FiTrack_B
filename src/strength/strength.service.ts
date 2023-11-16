@@ -27,10 +27,15 @@ export class StrengthService {
     return this.strengthRepository.save(cardio);
   }
 
-  async getAllStrengthTraining(): Promise<Strength[]> {
-    return this.strengthRepository.find({
-      order: { date: 'ASC' },
-    });
+  async getAllStrengthTraining(
+    sortBy: string,
+    order: string,
+  ): Promise<Strength[]> {
+    const sortyBy: 'duration' | 'date' = sortBy as 'duration' | 'date';
+    const orders: 'ASC' | 'DESC' = order as 'ASC' | 'DESC';
+
+    const query = { order: { [sortyBy]: orders } };
+    return this.strengthRepository.find(query);
   }
 
   async deleteStrengthExercise(id: number): Promise<void> {

@@ -32,8 +32,11 @@ export class StrengthController {
     );
   }
   @Get()
-  async getAllExercises(): Promise<Strength[]> {
-    return this.strengthService.getAllStrengthTraining();
+  async getAllExercises(
+    @Query('sortBy') sortBy: string,
+    @Query('order') order: string,
+  ): Promise<Strength[]> {
+    return this.strengthService.getAllStrengthTraining(sortBy, order);
   }
   @Delete(':id')
   async deleteStrengthExercise(@Query('id') id: number): Promise<void> {
