@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Delete,
+  Put,
+  Param,
+} from '@nestjs/common';
 import { CardioService } from './cardio.service';
 import { Cardio } from './cardio.entity';
 
@@ -26,5 +35,20 @@ export class CardioController {
   @Delete(':id')
   async deleteCardioExercise(@Query('id') id: number): Promise<void> {
     await this.cardioService.deleteCardioExercise(id);
+  }
+
+  @Put(':id')
+  async updateCardioExercise(
+    @Param('id') id: number,
+    @Body('exerciseName') exerciseName: string,
+    @Body('duration') duration: number,
+    @Body('date') date: Date,
+  ): Promise<void> {
+    await this.cardioService.updateCardioExercise(
+      id,
+      exerciseName,
+      duration,
+      date,
+    );
   }
 }

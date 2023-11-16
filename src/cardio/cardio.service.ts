@@ -40,4 +40,21 @@ export class CardioService {
 
     this.cardioRepository.remove(cardio);
   }
+
+  async updateCardioExercise(
+    id: number,
+    exerciseName: string,
+    duration: number,
+    date: Date,
+  ): Promise<void> {
+    const existingCardio = await this.cardioRepository.findOne({
+      where: { id: id },
+    });
+
+    existingCardio.exerciseName = exerciseName;
+    existingCardio.duration = duration;
+    existingCardio.date = date;
+
+    await this.cardioRepository.save(existingCardio);
+  }
 }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Strength } from './strength.entity';
@@ -37,9 +37,28 @@ export class StrengthService {
     const strength = await this.strengthRepository.findOne({
       where: { id: id },
     });
-    if (!strength) {
-      throw new NotFoundException(`Cardio exercise with ID ${id} not found`);
-    }
+
     this.strengthRepository.remove(strength);
+  }
+
+  async updateStrengthExercise(
+    id: number,
+    exerciseName: string,
+    weight: number,
+    sets: number,
+    repetitions: number,
+    date: Date,
+  ): Promise<void> {
+    const existingExercise = await this.strengthRepository.findOne({
+      where: { id: id },
+    });
+
+    existingExercise.exerciseName = exerciseName;
+    existingExercise.weight = weight;
+    existingExercise.sets = sets;
+    existingExercise.repetitions = repetitions;
+    existingExercise.date = date;
+
+    await this.strengthRepository.save(existingExercise);
   }
 }

@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Delete,
+  Put,
+  Param,
+} from '@nestjs/common';
 import { Strength } from './strength.entity';
 import { StrengthService } from './strength.service';
 
@@ -29,5 +38,24 @@ export class StrengthController {
   @Delete(':id')
   async deleteStrengthExercise(@Query('id') id: number): Promise<void> {
     this.strengthService.deleteStrengthExercise(id);
+  }
+
+  @Put(':id')
+  async updateStrengthExercise(
+    @Param('id') id: number,
+    @Body('exerciseName') exerciseName: string,
+    @Body('weight') weight: number,
+    @Body('sets') sets: number,
+    @Body('repetitions') repetitions: number,
+    @Body('date') date: Date,
+  ): Promise<void> {
+    await this.strengthService.updateStrengthExercise(
+      id,
+      exerciseName,
+      weight,
+      sets,
+      repetitions,
+      date,
+    );
   }
 }
