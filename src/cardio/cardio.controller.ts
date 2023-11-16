@@ -29,8 +29,11 @@ export class CardioController {
   }
 
   @Get()
-  async getAllExercises(@Query('asc') asc: string): Promise<Cardio[]> {
-    return this.cardioService.getAllCardio(asc);
+  async getAllExercises(
+    @Query('order') order: string,
+    @Query('sortBy') sortBy: string,
+  ): Promise<Cardio[]> {
+    return this.cardioService.getAllCardio(order, sortBy);
   }
 
   @Delete(':id')

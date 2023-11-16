@@ -22,11 +22,13 @@ export class CardioService {
     });
     return this.cardioRepository.save(cardio);
   }
-  async getAllCardio(asc: string): Promise<Cardio[]> {
-    const order: 'ASC' | 'DESC' = asc as 'ASC' | 'DESC';
-    return this.cardioRepository.find({
-      order: { date: order },
-    });
+  async getAllCardio(order: string, sortBy: string): Promise<Cardio[]> {
+    const sortyBy: 'duration' | 'date' = sortBy as 'duration' | 'date';
+    const orders: 'ASC' | 'DESC' = order as 'ASC' | 'DESC';
+
+    const query = { order: { [sortyBy]: orders } };
+
+    return this.cardioRepository.find(query);
   }
 
   async deleteCardioExercise(id: number): Promise<void> {
