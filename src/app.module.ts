@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cardio } from './cardio/cardio.entity';
 import { StrengthModule } from './strength/strength.module';
 import { Strength } from './strength/strength.entity';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Strength } from './strength/strength.entity';
     }),
     CardioModule,
     StrengthModule,
+    StatisticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
