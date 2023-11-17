@@ -23,8 +23,8 @@ export class StatisticsService {
   }
 
   async getTotalDistance(): Promise<number> {
-    const distances = await this.cardioRepository.find();
-    const totalDistance = distances.reduce(
+    const cardioExercise = await this.cardioRepository.find();
+    const totalDistance = cardioExercise.reduce(
       (sum, distances) => sum + distances.distance,
       0,
     );

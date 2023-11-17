@@ -6,11 +6,13 @@ export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
   @Get()
-  async getTotalWeightLifted(): Promise<number> {
-    return await this.statisticsService.getTotalWeightLifted();
-  }
-  @Get()
-  async getTotalDistance(): Promise<number> {
-    return await this.statisticsService.getTotalDistance();
+  async getStatistic(): Promise<any> {
+    const totalDistance = await this.statisticsService.getTotalDistance();
+    const totalWeight = await this.statisticsService.getTotalWeightLifted();
+    const statistics = {
+      totalDistance: totalDistance,
+      totalWeight: totalWeight,
+    };
+    return statistics;
   }
 }
