@@ -9,6 +9,9 @@ export class Cardio {
   exerciseName: string;
 
   @Column()
+  distance: number;
+
+  @Column()
   duration: number;
 
   @Column({ type: 'timestamp' })

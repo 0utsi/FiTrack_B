@@ -12,11 +12,13 @@ export class CardioService {
 
   async createCardioExercise(
     exerciseName: string,
+    distance: number,
     duration: number,
     date: Date,
   ): Promise<Cardio> {
     const cardio = this.cardioRepository.create({
       exerciseName,
+      distance,
       duration,
       date,
     });
@@ -44,6 +46,7 @@ export class CardioService {
   async updateCardioExercise(
     id: number,
     exerciseName: string,
+    distance: number,
     duration: number,
     date: Date,
   ): Promise<void> {
@@ -52,6 +55,7 @@ export class CardioService {
     });
 
     existingCardio.exerciseName = exerciseName;
+    existingCardio.distance = distance;
     existingCardio.duration = duration;
     existingCardio.date = date;
 

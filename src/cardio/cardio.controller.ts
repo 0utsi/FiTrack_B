@@ -18,11 +18,13 @@ export class CardioController {
   @Post()
   async createCardioExercise(
     @Body('exerciseName') exerciseName: string,
+    @Body('distance') distance: number,
     @Body('duration') duration: number,
     @Body('date') date: Date,
   ) {
     return this.cardioService.createCardioExercise(
       exerciseName,
+      distance,
       duration,
       date,
     );
@@ -45,12 +47,14 @@ export class CardioController {
   async updateCardioExercise(
     @Param('id') id: number,
     @Body('exerciseName') exerciseName: string,
+    @Body('distance') distance: number,
     @Body('duration') duration: number,
     @Body('date') date: Date,
   ): Promise<void> {
     await this.cardioService.updateCardioExercise(
       id,
       exerciseName,
+      distance,
       duration,
       date,
     );
