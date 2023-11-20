@@ -31,7 +31,7 @@ export class StrengthService {
     const sortyBy: 'duration' | 'date' = sortBy as 'duration' | 'date';
     const orders: 'ASC' | 'DESC' = order as 'ASC' | 'DESC';
 
-    const query = { order: { [sortyBy]: orders } };
+    const query = { order: { [sortyBy]: orders }, relations: ['sets'] };
     return this.strengthRepository.find(query);
   }
 
