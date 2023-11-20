@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { StrengthService } from './strength.service';
 import { StrengthController } from './strength.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Strength } from './strength.entity';
+import { StrengthExercise } from './entities/strengthExercise.entity';
+import { StrengthSet } from './entities/strengthSet.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Strength])],
+  imports: [TypeOrmModule.forFeature([StrengthExercise, StrengthSet])],
   providers: [StrengthService],
   controllers: [StrengthController],
 })

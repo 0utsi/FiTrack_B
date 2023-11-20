@@ -8,10 +8,10 @@ export class StatisticsController {
   @Get()
   async getStatistic(): Promise<any> {
     const totalDistance = await this.statisticsService.getTotalDistance();
-    const totalWeight = await this.statisticsService.getTotalWeightLifted();
+    // const totalWeight = await this.statisticsService.getTotalWeightLifted();
     const statistics = {
       totalDistance: totalDistance,
-      totalWeight: totalWeight,
+      totalWeight: 2,
     };
     return statistics;
   }

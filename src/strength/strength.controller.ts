@@ -5,60 +5,54 @@ import {
   Get,
   Query,
   Delete,
-  Put,
   Param,
 } from '@nestjs/common';
-import { Strength } from './strength.entity';
+import { StrengthExercise } from './entities/strengthExercise.entity';
 import { StrengthService } from './strength.service';
+import { StrengthSet } from './entities/strengthSet.entity';
 
 @Controller('strength')
 export class StrengthController {
   constructor(private readonly strengthService: StrengthService) {}
 
   @Post()
-  async createCardioExercise(
+  async createStrengthExercise(
     @Body('exerciseName') exerciseName: string,
-    @Body('weight') weight: number,
-    @Body('sets') sets: number,
-    @Body('repetitions') repetitions: number,
     @Body('date') date: Date,
+    @Body('sets') sets: StrengthSet[],
   ) {
     return this.strengthService.createStrengthExercise(
       exerciseName,
-      weight,
-      sets,
-      repetitions,
       date,
+      sets,
     );
   }
+
   @Get()
   async getAllExercises(
     @Query('sortBy') sortBy: string,
     @Query('order') order: string,
-  ): Promise<Strength[]> {
-    return this.strengthService.getAllStrengthTraining(sortBy, order);
+  ): Promise<StrengthExercise[]> {
+    return this.strengthService.getAllStrengthExercises(sortBy, order);
   }
+
   @Delete(':id')
-  async deleteStrengthExercise(@Query('id') id: number): Promise<void> {
+  async deleteStrengthExercise(@Param('id') id: number): Promise<void> {
     this.strengthService.deleteStrengthExercise(id);
   }
 
-  @Put(':id')
-  async updateStrengthExercise(
-    @Param('id') id: number,
-    @Body('exerciseName') exerciseName: string,
-    @Body('weight') weight: number,
-    @Body('sets') sets: number,
-    @Body('repetitions') repetitions: number,
-    @Body('date') date: Date,
-  ): Promise<void> {
-    await this.strengthService.updateStrengthExercise(
-      id,
-      exerciseName,
-      weight,
-      sets,
-      repetitions,
-      date,
-    );
-  }
+  //   @Put(':id')
+  //   async updateStrengthExercise(
+  //     @Param('id') id: number,
+  //     @Body('exerciseName') exerciseName: string,
+  //     @Body('date') date: Date,
+  //     @Body('sets') sets: { weight: number; repetitions: number }[],
+  //   ): Promise<void> {
+  //     await this.strengthService.updateStrengthExercise(
+  //       id,
+  //       exerciseName,
+  //       date,
+  //       sets,
+  //     );
+  //   }
 }

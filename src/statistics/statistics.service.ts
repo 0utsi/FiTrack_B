@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Strength } from '../strength/strength.entity';
+import { StrengthExercise } from '../strength/entities/strengthExercise.entity';
 import { Cardio } from '../cardio/cardio.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -9,18 +9,18 @@ export class StatisticsService {
   constructor(
     @InjectRepository(Cardio)
     private cardioRepository: Repository<Cardio>,
-    @InjectRepository(Strength)
-    private strengthRepository: Repository<Strength>,
+    @InjectRepository(StrengthExercise)
+    private strengthRepository: Repository<StrengthExercise>,
   ) {}
 
-  async getTotalWeightLifted(): Promise<number> {
-    const strengthExercises = await this.strengthRepository.find();
-    const totalWeight = strengthExercises.reduce(
-      (sum, exercise) => sum + exercise.weight,
-      0,
-    );
-    return totalWeight;
-  }
+  //   async getTotalWeightLifted(): Promise<number> {
+  //     const strengthExercises = await this.strengthRepository.find();
+  //     const totalWeight = strengthExercises.reduce(
+  //       (sum, exercise) => sum + exercise.weight,
+  //       0,
+  //     );
+  //     return totalWeight;
+  //   }
 
   async getTotalDistance(): Promise<number> {
     const cardioExercise = await this.cardioRepository.find();

@@ -1,36 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Strength } from './strength.entity';
+import { StrengthExercise } from './entities/strengthExercise.entity';
+import { StrengthSet } from './entities/strengthSet.entity';
 
 @Injectable()
 export class StrengthService {
   constructor(
-    @InjectRepository(Strength)
-    private strengthRepository: Repository<Strength>,
+    @InjectRepository(StrengthExercise)
+    private strengthRepository: Repository<StrengthExercise>,
   ) {}
 
   async createStrengthExercise(
     exerciseName: string,
-    weight: number,
-    sets: number,
-    repetitions: number,
     date: Date,
-  ): Promise<Strength> {
-    const cardio = this.strengthRepository.create({
+    sets: StrengthSet[],
+  ): Promise<StrengthExercise> {
+    const strength = this.strengthRepository.create({
       exerciseName,
-      weight,
-      sets,
-      repetitions,
       date,
+      sets,
     });
-    return this.strengthRepository.save(cardio);
+    return this.strengthRepository.save(strength);
   }
 
-  async getAllStrengthTraining(
+  async getAllStrengthExercises(
     sortBy: string,
     order: string,
-  ): Promise<Strength[]> {
+  ): Promise<StrengthExercise[]> {
     const sortyBy: 'duration' | 'date' = sortBy as 'duration' | 'date';
     const orders: 'ASC' | 'DESC' = order as 'ASC' | 'DESC';
 
@@ -46,24 +43,20 @@ export class StrengthService {
     this.strengthRepository.remove(strength);
   }
 
-  async updateStrengthExercise(
-    id: number,
-    exerciseName: string,
-    weight: number,
-    sets: number,
-    repetitions: number,
-    date: Date,
-  ): Promise<void> {
-    const existingExercise = await this.strengthRepository.findOne({
-      where: { id: id },
-    });
+  //   async updateStrengthExercise(
+  //     id: number,
+  //     exerciseName: string,
+  //     date: Date,
+  //     sets: StrengthSet[],
+  //   ): Promise<void> {
+  //     const existingExercise = await this.strengthRepository.findOne({
+  //       where: { id: id },
+  //     });
 
-    existingExercise.exerciseName = exerciseName;
-    existingExercise.weight = weight;
-    existingExercise.sets = sets;
-    existingExercise.repetitions = repetitions;
-    existingExercise.date = date;
+  //     existingExercise.exerciseName = exerciseName;
+  //     existingExercise.sets = sets;
+  //     existingExercise.date = date;
 
-    await this.strengthRepository.save(existingExercise);
-  }
+  //     await this.strengthRepository.save(existingExercise);
+  //   }
 }
