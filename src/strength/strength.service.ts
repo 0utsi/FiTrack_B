@@ -9,21 +9,27 @@ export class StrengthService {
   constructor(
     @InjectRepository(StrengthExercise)
     private strengthExRepository: Repository<StrengthExercise>,
-    @InjectRepository(StrengthSet)
-    private strengthSetRepository: Repository<StrengthSet>,
   ) {}
 
-  async createStrengthExercise(
-    exerciseName: string,
-    date: Date,
-    sets: StrengthSet[],
-  ): Promise<StrengthExercise> {
-    const strength = this.strengthExRepository.create({
-      exerciseName,
-      date,
-      sets,
+  async createStrengthExercise(exerciseData: {
+    exerciseName: string;
+    date: string;
+    sets: StrengthSet[];
+  }): Promise<StrengthExercise> {
+    const { exerciseName, date, sets } = exerciseData;
+    console.log(sets, exerciseName, date);
+    const strengthExercise = new StrengthExercise();
+    strengthExercise.exerciseName = exerciseName;
+    strengthExercise.date = new Date(date);
+    strengthExercise.sets = sets?.map((setData) => {
+      const set = new StrengthSet();
+      set.repetitions = setData.repetitions;
+      set.weight = setData.weight;
+      return set;
     });
-    return this.strengthExRepository.save(strength);
+
+    await this.strengthExRepository.save(strengthExercise);
+    return strengthExercise;
   }
 
   async getAllStrengthExercises(
@@ -43,6 +49,14 @@ export class StrengthService {
       .delete()
       .from(StrengthSet)
       .where('strengthExerciseId = :id', { id })
+      .execute();
+
+    // Usuwanie z StrengthExercise
+    await this.strengthExRepository
+      .createQueryBuilder()
+      .delete()
+      .from(StrengthExercise)
+      .where('id = :id', { id })
       .execute();
   }
 

@@ -19,14 +19,15 @@ export class StrengthController {
   @Post()
   async createStrengthExercise(
     @Body('exerciseName') exerciseName: string,
-    @Body('date') date: Date,
+    @Body('date') date: string,
     @Body('sets') sets: StrengthSet[],
-  ) {
-    return this.strengthService.createStrengthExercise(
+  ): Promise<StrengthExercise> {
+    console.log(sets, exerciseName, date);
+    return this.strengthService.createStrengthExercise({
       exerciseName,
       date,
       sets,
-    );
+    });
   }
 
   @Get()
