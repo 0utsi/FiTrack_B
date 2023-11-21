@@ -43,20 +43,21 @@ export class StrengthService {
     this.strengthExRepository.remove(strength);
   }
 
-  //   async updateStrengthExercise(
-  //     id: number,
-  //     exerciseName: string,
-  //     date: Date,
-  //     sets: StrengthSet[],
-  //   ): Promise<void> {
-  //     const existingExercise = await this.strengthExRepository.findOne({
-  //       where: { id: id },
-  //     });
+  async updateStrengthExercise(
+    id: number,
+    exerciseName: string,
+    date: Date,
+    sets: StrengthSet[],
+  ): Promise<void> {
+    const existingExercise = await this.strengthExRepository.findOne({
+      where: { id: id },
+      relations: ['sets'],
+    });
 
-  //     existingExercise.exerciseName = exerciseName;
-  //     existingExercise.sets = sets;
-  //     existingExercise.date = date;
+    existingExercise.exerciseName = exerciseName;
+    existingExercise.sets = sets;
+    existingExercise.date = date;
 
-  //     await this.strengthExRepository.save(existingExercise);
-  //   }
+    await this.strengthExRepository.save(existingExercise);
+  }
 }

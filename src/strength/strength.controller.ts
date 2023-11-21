@@ -6,6 +6,7 @@ import {
   Query,
   Delete,
   Param,
+  Put,
 } from '@nestjs/common';
 import { StrengthExercise } from './entities/strengthExercise.entity';
 import { StrengthService } from './strength.service';
@@ -41,18 +42,18 @@ export class StrengthController {
     this.strengthService.deleteStrengthExercise(id);
   }
 
-  //   @Put(':id')
-  //   async updateStrengthExercise(
-  //     @Param('id') id: number,
-  //     @Body('exerciseName') exerciseName: string,
-  //     @Body('date') date: Date,
-  //     @Body('sets') sets: { weight: number; repetitions: number }[],
-  //   ): Promise<void> {
-  //     await this.strengthService.updateStrengthExercise(
-  //       id,
-  //       exerciseName,
-  //       date,
-  //       sets,
-  //     );
-  //   }
+  @Put(':id')
+  async updateStrengthExercise(
+    @Param('id') id: number,
+    @Body('exerciseName') exerciseName: string,
+    @Body('date') date: Date,
+    @Body('sets') sets: StrengthSet[],
+  ): Promise<void> {
+    await this.strengthService.updateStrengthExercise(
+      id,
+      exerciseName,
+      date,
+      sets,
+    );
+  }
 }
