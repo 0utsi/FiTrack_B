@@ -4,9 +4,10 @@ import { StatisticsController } from './statistics.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StrengthExercise } from '../strength/entities/strengthExercise.entity';
 import { Cardio } from '../cardio/cardio.entity';
+import { StrengthSet } from '../strength/entities/strengthSet.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([StrengthExercise, Cardio])],
+  imports: [TypeOrmModule.forFeature([StrengthExercise, StrengthSet, Cardio])],
   providers: [StatisticsService],
   controllers: [StatisticsController],
 })

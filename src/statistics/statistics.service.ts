@@ -13,14 +13,24 @@ export class StatisticsService {
     private strengthRepository: Repository<StrengthExercise>,
   ) {}
 
-  //   async getTotalWeightLifted(): Promise<number> {
-  //     const strengthExercises = await this.strengthRepository.find();
-  //     const totalWeight = strengthExercises.reduce(
-  //       (sum, exercise) => sum + exercise.weight,
-  //       0,
-  //     );
-  //     return totalWeight;
-  //   }
+  async getTotalWeightLifted(): Promise<number> {
+    const strengthExercises = await this.strengthRepository.find({
+      relations: ['sets'],
+    });
+    console.log(strengthExercises);
+    let totalWeight = 0;
+
+    strengthExercises.forEach((exercise) => {
+      if (exercise.sets && exercise.sets.length > 0) {
+        totalWeight += exercise.sets.reduce(
+          (acc, set) => acc + (set.weight || 0),
+          0,
+        );
+      }
+    });
+
+    return totalWeight;
+  }
 
   async getTotalDistance(): Promise<number> {
     const cardioExercise = await this.cardioRepository.find();

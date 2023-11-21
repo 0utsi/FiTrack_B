@@ -8,7 +8,7 @@ import { StrengthSet } from './entities/strengthSet.entity';
 export class StrengthService {
   constructor(
     @InjectRepository(StrengthExercise)
-    private strengthRepository: Repository<StrengthExercise>,
+    private strengthExRepository: Repository<StrengthExercise>,
   ) {}
 
   async createStrengthExercise(
@@ -16,12 +16,12 @@ export class StrengthService {
     date: Date,
     sets: StrengthSet[],
   ): Promise<StrengthExercise> {
-    const strength = this.strengthRepository.create({
+    const strength = this.strengthExRepository.create({
       exerciseName,
       date,
       sets,
     });
-    return this.strengthRepository.save(strength);
+    return this.strengthExRepository.save(strength);
   }
 
   async getAllStrengthExercises(
@@ -32,15 +32,15 @@ export class StrengthService {
     const orders: 'ASC' | 'DESC' = order as 'ASC' | 'DESC';
 
     const query = { order: { [sortyBy]: orders }, relations: ['sets'] };
-    return this.strengthRepository.find(query);
+    return this.strengthExRepository.find(query);
   }
 
   async deleteStrengthExercise(id: number): Promise<void> {
-    const strength = await this.strengthRepository.findOne({
+    const strength = await this.strengthExRepository.findOne({
       where: { id: id },
     });
 
-    this.strengthRepository.remove(strength);
+    this.strengthExRepository.remove(strength);
   }
 
   //   async updateStrengthExercise(
@@ -49,7 +49,7 @@ export class StrengthService {
   //     date: Date,
   //     sets: StrengthSet[],
   //   ): Promise<void> {
-  //     const existingExercise = await this.strengthRepository.findOne({
+  //     const existingExercise = await this.strengthExRepository.findOne({
   //       where: { id: id },
   //     });
 
@@ -57,6 +57,6 @@ export class StrengthService {
   //     existingExercise.sets = sets;
   //     existingExercise.date = date;
 
-  //     await this.strengthRepository.save(existingExercise);
+  //     await this.strengthExRepository.save(existingExercise);
   //   }
 }
