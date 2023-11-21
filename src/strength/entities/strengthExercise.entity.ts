@@ -14,6 +14,7 @@ export class StrengthExercise {
 
   @OneToMany(() => StrengthSet, (set) => set.strengthExercise, {
     cascade: true,
+    onDelete: 'CASCADE',
   })
   sets: StrengthSet[];
 }

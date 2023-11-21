@@ -9,6 +9,8 @@ export class StrengthService {
   constructor(
     @InjectRepository(StrengthExercise)
     private strengthExRepository: Repository<StrengthExercise>,
+    @InjectRepository(StrengthSet)
+    private strengthSetRepository: Repository<StrengthSet>,
   ) {}
 
   async createStrengthExercise(
@@ -36,11 +38,12 @@ export class StrengthService {
   }
 
   async deleteStrengthExercise(id: number): Promise<void> {
-    const strength = await this.strengthExRepository.findOne({
-      where: { id: id },
-    });
-
-    this.strengthExRepository.remove(strength);
+    await this.strengthExRepository
+      .createQueryBuilder()
+      .delete()
+      .from(StrengthSet)
+      .where('strengthExerciseId = :id', { id })
+      .execute();
   }
 
   async updateStrengthExercise(

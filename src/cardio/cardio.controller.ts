@@ -39,7 +39,7 @@ export class CardioController {
   }
 
   @Delete(':id')
-  async deleteCardioExercise(@Query('id') id: number): Promise<void> {
+  async deleteCardioExercise(@Param('id') id: number): Promise<void> {
     await this.cardioService.deleteCardioExercise(id);
   }
 
